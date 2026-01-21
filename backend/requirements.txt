@@ -5,8 +5,6 @@ pydantic
 python-multipart
 passlib[bcrypt]
 python-jose[cryptography]
-nltk
-spacy
 scikit-learn
 pypdf
 python-docx

@@ -23,6 +23,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 app.include_router(auth.router)
 app.include_router(jobs.router)
 app.include_router(resumes.router)

@@ -19,8 +19,6 @@ COPY ./backend/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Download NLP models (doing this after pip install to ensure libraries exist)
-RUN python -m spacy download en_core_web_sm
-RUN python -m nltk.downloader stopwords punkt
 
 # Copy the rest of the application
 COPY ./backend/app /app/app
