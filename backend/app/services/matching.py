@@ -11,6 +11,12 @@ def clean_text(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+from functools import lru_cache
+
+@lru_cache(maxsize=1)
+def get_vectorizer():
+    return TfidfVectorizer(stop_words='english')
+
 def calculate_similarity(resume_text: str, job_desc_text: str) -> float:
     if not resume_text or not job_desc_text:
         return 0.0
@@ -20,7 +26,7 @@ def calculate_similarity(resume_text: str, job_desc_text: str) -> float:
     
     corpus = [clean_resume, clean_jd]
     
-    vectorizer = TfidfVectorizer(stop_words='english')
+    vectorizer = get_vectorizer()
     try:
         tfidf_matrix = vectorizer.fit_transform(corpus)
         similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
