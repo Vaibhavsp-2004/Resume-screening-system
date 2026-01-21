@@ -58,6 +58,10 @@ async function getJobs() {
             'Authorization': `Bearer ${token}`
         }
     });
+    if (!response.ok) {
+        const err = await response.json().catch(() => ({ detail: response.statusText }));
+        throw new Error(err.detail || response.statusText);
+    }
     return await response.json();
 }
 
