@@ -10,4 +10,5 @@ pypdf
 python-docx
 pandas
 python-dotenv
+psycopg2-binary
 fpdf
