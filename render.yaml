@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: aise-app
+    env: docker
+    region: singapore
+    plan: free
+    branch: main
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0

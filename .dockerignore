@@ -1,0 +1,7 @@
+.git
+.venv
+__pycache__
+uploads
+sql_app.db
+node_modules
+.env

@@ -8,3 +8,4 @@ services:
     volumes:
       - ./uploads:/app/uploads
       - ./sql_app.db:/app/sql_app.db
+    restart: unless-stopped
