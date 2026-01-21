@@ -1,0 +1,146 @@
+VAIBHAV S P
+
+Machine Learning Engineer | Computer Vision | MLOps
+📍 India
+📧 vaibhavsp@email.com
+ | 📱 +91-XXXXXXXXXX
+🔗 LinkedIn: linkedin.com/in/vaibhavsp
+🔗 GitHub: github.com/vaibhavsp
+
+PROFESSIONAL SUMMARY
+
+Machine Learning Engineer with strong foundations in machine learning, deep learning, and computer vision, experienced in building end-to-end ML pipelines from data ingestion to deployment. Proven ability to train, evaluate, and optimize models using PyTorch, TensorFlow, and scikit-learn, with hands-on experience in YOLO-based object detection, MLOps workflows, and scalable backend systems. Seeking high-impact ML roles with compensation ₹20+ LPA.
+
+CORE SKILLS (ATS KEYWORDS)
+
+Machine Learning & AI
+
+Supervised & Unsupervised Learning
+
+Deep Learning, Neural Networks
+
+Computer Vision, Object Detection, Image Classification
+
+NLP (Tokenization, Embeddings, Transformers – basics)
+
+Model Evaluation, Bias-Variance Tradeoff
+
+Frameworks & Libraries
+
+PyTorch, TensorFlow, Keras
+
+scikit-learn, OpenCV, NumPy, Pandas
+
+YOLO (v5/v8), Detectron2
+
+MLOps & Deployment
+
+Model Training Pipelines
+
+Experiment Tracking
+
+REST APIs (FastAPI, Flask)
+
+Docker, CI/CD (basic)
+
+Model Monitoring & Versioning
+
+Programming & Tools
+
+Python, C++, SQL
+
+Git, Linux
+
+Kaggle, Jupyter, VS Code
+
+Data & Systems
+
+Data Preprocessing & Feature Engineering
+
+PostgreSQL
+
+JWT Authentication
+
+RAG Pipelines (LLM-assisted systems)
+
+PROFESSIONAL EXPERIENCE
+Machine Learning Engineer (Project-Based / Academic-Industry)
+
+AI & ML Engineering Projects | 2024 – Present
+
+Designed and trained computer vision models for railway track intrusion and obstacle detection, improving detection reliability in real-world conditions.
+
+Trained and fine-tuned YOLO object detection models on custom datasets using Kaggle GPU environments, achieving measurable mAP improvements through augmentation and hyperparameter tuning.
+
+Built end-to-end ML pipelines including data preprocessing, training, validation, and inference.
+
+Developed REST APIs using FastAPI to serve ML models for real-time inference.
+
+Implemented JWT-based authentication and PostgreSQL for secure user management in ML-powered platforms.
+
+Worked on LLM-assisted educational platforms, integrating RAG (Retrieval-Augmented Generation), progression systems, and quiz analytics.
+
+Tech Stack: Python, PyTorch, YOLO, OpenCV, FastAPI, PostgreSQL, Docker, Git
+
+KEY PROJECTS
+Track Intrusion Detection System (Computer Vision)
+
+Built a real-time object detection system to identify humans and obstacles on railway tracks.
+
+Used YOLO-based architectures with custom-labeled datasets.
+
+Focused on low-latency inference and robustness under varying lighting conditions.
+
+LMS with AI Tutor & Socratic Question Generator
+
+Designed an AI-powered learning platform with document ingestion (PDF/TXT), semantic search, and adaptive questioning.
+
+Integrated LLM pipelines with memory, evaluation, and progression logic.
+
+Backend architecture designed for production-grade scalability.
+
+Kaggle ML Training & Experimentation
+
+Trained multiple ML/DL models on Kaggle notebooks.
+
+Applied feature engineering, cross-validation, and hyperparameter optimization.
+
+Maintained reproducibility through versioned experiments.
+
+EDUCATION
+
+Bachelor of Engineering (B.E.) – Artificial Intelligence & Machine Learning
+[Your University Name], India
+Expected Graduation: 2026
+
+Relevant Coursework:
+
+Machine Learning
+
+Deep Learning
+
+Artificial Intelligence
+
+Design & Analysis of Algorithms
+
+Computer Networks
+
+Discrete Mathematical Structures
+
+ACHIEVEMENTS & HIGHLIGHTS
+
+Strong hands-on experience in applied computer vision, not just theory.
+
+Built production-oriented ML systems, not notebook-only projects.
+
+Actively working on AI products solving real-world problems.
+
+Consistent focus on performance, scalability, and deployment readiness.
+
+ADDITIONAL INFORMATION
+
+Comfortable with research papers, technical documentation, and rapid prototyping.
+
+Strong interest in AI startups, applied ML, and real-world impact systems.
+
+Actively upskilling in advanced MLOps and LLM systems.

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="#" class="nav-brand">AI Screener</a>
+            <div class="nav-links">
+                <button class="btn btn-outline" onclick="logout()">Logout</button>
+            </div>
+        </nav>
+
+        <div class="flex-between mb-4">
+            <h2>Your Job Postings</h2>
+            <button class="btn btn-primary" onclick="document.getElementById('job-modal').classList.remove('hidden')">
+                + Create New Job
+            </button>
+        </div>
+
+        <div class="glass-card" style="margin-top: 1rem;">
+            <div id="jobs-list">
+                <!-- Jobs will be loaded here -->
+                <p class="text-center text-muted">Loading jobs...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Job Modal -->
+    <div id="job-modal" class="hidden"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center;">
+        <div class="glass-card" style="width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;">
+            <div class="flex-between">
+                <h3>Create New Job</h3>
+                <button class="btn btn-outline"
+                    onclick="document.getElementById('job-modal').classList.add('hidden')">X</button>
+            </div>
+            <div class="form-group mt-4">
+                <label>Job Title</label>
+                <input type="text" id="job-title">
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text" id="job-dept">
+            </div>
+            <div class="form-group">
+                <label>Skills Required (comma separated)</label>
+                <textarea id="job-skills"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Experience Required</label>
+                <input type="text" id="job-exp">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="job-desc" rows="4"></textarea>
+            </div>
+            <button class="btn btn-primary" style="width: 100%" onclick="handleCreateJob()">Create Job</button>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+        checkAuth();
+
+        async function loadJobs() {
+            const jobs = await getJobs();
+            const container = document.getElementById('jobs-list');
+
+            if (jobs.length === 0) {
+                container.innerHTML = '<p class="text-center text-muted">No jobs created yet.</p>';
+                return;
+            }
+
+            let html = '<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">';
+            jobs.forEach(job => {
+                html += `
+                    <div class="glass-card" style="padding: 1.5rem; border: 1px solid var(--border);">
+                        <h3>${job.title}</h3>
+                        <p class="text-muted">${job.department}</p>
+                        <p class="text-sm" style="color: var(--text-muted)">Created: ${new Date(job.created_at).toLocaleDateString()}</p>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            <a href="job_details.html?id=${job.id}" class="btn btn-outline" style="flex: 1; text-align: center;">View Candidates</a>
+                            <button onclick="deleteJob(${job.id})" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        async function handleCreateJob() {
+            const data = {
+                title: document.getElementById('job-title').value,
+                department: document.getElementById('job-dept').value,
+                skills_required: document.getElementById('job-skills').value,
+                experience_required: document.getElementById('job-exp').value,
+                description: document.getElementById('job-desc').value
+            };
+
+            await createJob(data);
+            document.getElementById('job-modal').classList.add('hidden');
+            loadJobs();
+        }
+
+        loadJobs();
+    </script>
+</body>
+
+</html>

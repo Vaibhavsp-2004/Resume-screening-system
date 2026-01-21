@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="dashboard.html" class="nav-brand">← Back to Dashboard</a>
+            <div class="nav-links">
+                <button class="btn btn-outline" onclick="logout()">Logout</button>
+            </div>
+        </nav>
+
+        <div id="job-header" class="mb-4">
+            <!-- Job details populated here -->
+        </div>
+
+        <div class="glass-card mb-4" style="margin-bottom: 2rem;">
+            <h3>Upload Resumes</h3>
+            <div class="flex-between" style="gap: 1rem; margin-top: 1rem;">
+                <input type="file" id="resume-upload" multiple accept=".pdf,.docx">
+                <button class="btn btn-primary" onclick="handleUpload()">Upload & Analyze</button>
+            </div>
+            <p id="upload-status" class="text-muted mt-4"></p>
+        </div>
+
+        <div class="glass-card">
+            <h3>Ranked Candidates</h3>
+            <div class="table-container" style="margin-top: 1rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="candidates-table">
+                        <!-- Rows populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+        checkAuth();
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobId = urlParams.get('id');
+
+        async function loadJobAndCandidates() {
+            if (!jobId) window.location.href = 'dashboard.html';
+
+            // Load Job Details
+            const job = await getJobDetails(jobId);
+            document.getElementById('job-header').innerHTML = `
+                <h1>${job.title}</h1>
+                <p class="text-muted">${job.department} • ${job.experience_required} Exp</p>
+                <div class="glass-card" style="margin-top: 1rem; background: rgba(0,0,0,0.2);">
+                    <h4>Required Skills</h4>
+                    <p>${job.skills_required}</p>
+                    <h4 class="mt-4">Description</h4>
+                    <p>${job.description}</p>
+                </div>
+            `;
+
+            // Load Candidates
+            const candidates = await getCandidates(jobId);
+            const tbody = document.getElementById('candidates-table');
+
+            // Sort by score (descending)
+            candidates.sort((a, b) => {
+                const scoreA = a.scores.length > 0 ? a.scores[0].similarity_score : 0;
+                const scoreB = b.scores.length > 0 ? b.scores[0].similarity_score : 0;
+                return scoreB - scoreA;
+            });
+
+            if (candidates.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center">No candidates uploaded yet.</td></tr>';
+                return;
+            }
+
+            let html = '';
+            candidates.forEach((c, index) => {
+                const scoreObj = c.scores.length > 0 ? c.scores[0] : { similarity_score: 0, status: 'Pending' };
+                const scorePct = (scoreObj.similarity_score * 100).toFixed(1);
+
+                let badgeClass = 'badge-warning';
+                if (scoreObj.status === 'Shortlisted') badgeClass = 'badge-success';
+                if (scoreObj.status === 'Rejected') badgeClass = 'badge-danger';
+
+                html += `
+                    <tr>
+                        <td>#${index + 1}</td>
+                        <td>${c.name}</td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 100px; height: 6px; background: var(--bg-dark); border-radius: 3px; overflow: hidden;">
+                                    <div style="width: ${scorePct}%; height: 100%; background: var(--primary);"></div>
+                                </div>
+                                ${scorePct}%
+                            </div>
+                        </td>
+                        <td><span class="badge ${badgeClass}">${scoreObj.status}</span></td>
+                        <td>
+                            <button class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">View Profile</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        async function handleUpload() {
+            const input = document.getElementById('resume-upload');
+            const status = document.getElementById('upload-status');
+
+            if (input.files.length === 0) return;
+
+            status.textContent = "Uploading and analyzing...";
+
+            let completed = 0;
+            for (let i = 0; i < input.files.length; i++) {
+                try {
+                    await uploadResume(jobId, input.files[i]);
+                    completed++;
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            status.textContent = `Processed ${completed} resumes.`;
+            input.value = '';
+            loadJobAndCandidates();
+        }
+
+        loadJobAndCandidates();
+    </script>
+</body>
+
+</html>
