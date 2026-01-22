@@ -1,6 +1,8 @@
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from functools import lru_cache
 import re
+import numpy as np
 
 def clean_text(text: str) -> str:
     # Keep letters, numbers, spaces, and specific symbols like + and # (for C++, C#)
