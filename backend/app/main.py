@@ -67,6 +67,13 @@ if not os.path.exists(frontend_path):
     # .../aise/backend/app/main.py -> .../aise/frontend
     frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "frontend")
 
+# Ensure uploads directory exists
+uploads_path = "uploads"
+if not os.path.exists(uploads_path):
+    os.makedirs(uploads_path)
+
+app.mount("/uploads", StaticFiles(directory=uploads_path), name="uploads")
+
 if os.path.exists(frontend_path):
     app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
 else:
