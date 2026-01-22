@@ -59,9 +59,6 @@ def calculate_similarity(resume_text: str, job_desc_text: str) -> float:
             score = max(score, min(fallback_score, 0.5))
 
     return round(score, 2)
-    except Exception as e:
-        print(f"Error calculating similarity: {e}")
-        return 0.0
 
 def rank_candidates(candidates_data: list) -> list:
     # candidate_data = [{'id': 1, 'score': 0.8}, ...]
