@@ -16,8 +16,16 @@ def extract_text_from_docx(file_path: str) -> str:
     text = ""
     try:
         doc = docx.Document(file_path)
+        # Extract from paragraphs
         for para in doc.paragraphs:
             text += para.text + "\n"
+        
+        # Extract from tables (resumes often use tables for layout)
+        for table in doc.tables:
+            for row in table.rows:
+                for cell in row.cells:
+                    for paragraph in cell.paragraphs:
+                        text += paragraph.text + "\n"
     except Exception as e:
         print(f"Error reading DOCX: {e}")
     return text
