@@ -22,11 +22,26 @@ def extract_text_from_docx(file_path: str) -> str:
         print(f"Error reading DOCX: {e}")
     return text
 
+def extract_text_from_txt(file_path: str) -> str:
+    text = ""
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            text = f.read()
+    except Exception as e:
+        print(f"Error reading TXT: {e}")
+    return text
+
 def parse_resume(file_path: str) -> str:
+    print(f"DEBUG: Parsing file: {file_path}")
     _, ext = os.path.splitext(file_path)
     ext = ext.lower()
+    text = ""
     if ext == ".pdf":
-        return extract_text_from_pdf(file_path)
+        text = extract_text_from_pdf(file_path)
     elif ext == ".docx":
-        return extract_text_from_docx(file_path)
-    return ""
+        text = extract_text_from_docx(file_path)
+    elif ext == ".txt":
+        text = extract_text_from_txt(file_path)
+    
+    print(f"DEBUG: Extracted {len(text)} chars from {ext} file.")
+    return text
